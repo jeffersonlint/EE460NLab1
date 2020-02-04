@@ -11,6 +11,12 @@
 #include <ctype.h> /* Library for useful character operations */
 #include <limits.h> /* Library for definitions of common variable type characteristics */
 
+#define MAX_LINE_LENGTH 255
+
+/*prototypes*/
+int readAndParse(FILE* pInFile, char* pLine, char** pLabel, char** pOpcode, char** pArg1, char** pArg2, char** pArg3, char** pArg4);
+int isOpCode(char* op);
+
 int main(int argc, char* argv[])
 {
   //open up the files babyyyy
@@ -34,8 +40,8 @@ int main(int argc, char* argv[])
     printf("Error: Cannot open file %s\n", argv[2]);
     exit(4);
   }
-  printf("Opening input and output files!\n");
+  printf("Opening files!\n");
 
-
+  fprintf(outFile, "0x4500\n");
 
 }
