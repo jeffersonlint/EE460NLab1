@@ -1,36 +1,19 @@
-First Pass, Line: 1;  OPCODE:  .orig
-First Pass, Line: 2;  OPCODE:  
-First Pass, Line: 3;  OPCODE:  and
-First Pass, Line: 4;  OPCODE:  add
-First Pass, Line: 5;  OPCODE:  lshf
-First Pass, Line: 6;  OPCODE:  add
-First Pass, Line: 7;  OPCODE:  lshf
-First Pass, Line: 8;  OPCODE:  loop
-First Pass, Line: 9;  OPCODE:  ldb
-First Pass, Line: 10;  OPCODE:  stb
-First Pass, Line: 11;  OPCODE:  stb
-First Pass, Line: 12;  OPCODE:  add
-First Pass, Line: 13;  OPCODE:  add
-First Pass, Line: 14;  OPCODE:  brnp
-First Pass, Line: 15;  OPCODE:  
-First Pass, Line: 16;  OPCODE:  halt
-First Pass, Line: 17;  OPCODE:  
-First Pass, Line: 18;  OPCODE:  .end
-Second Pass, Line: 1;  OPCODE:  .orig
-Second Pass, Line: 2;  OPCODE:  
-Second Pass, Line: 3;  OPCODE:  and
-Second Pass, Line: 4;  OPCODE:  add
-Second Pass, Line: 5;  OPCODE:  lshf
-Second Pass, Line: 6;  OPCODE:  add
-Second Pass, Line: 7;  OPCODE:  lshf
-Second Pass, Line: 8;  OPCODE:  loop
-Second Pass, Line: 9;  OPCODE:  ldb
-Second Pass, Line: 10;  OPCODE:  stb
-Second Pass, Line: 11;  OPCODE:  stb
-Second Pass, Line: 12;  OPCODE:  add
-Second Pass, Line: 13;  OPCODE:  add
-Second Pass, Line: 14;  OPCODE:  brnp
-Second Pass, Line: 15;  OPCODE:  
-Second Pass, Line: 16;  OPCODE:  halt
-Second Pass, Line: 17;  OPCODE:  
-Second Pass, Line: 18;  OPCODE:  .end
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0
+No label, no opcode:  0

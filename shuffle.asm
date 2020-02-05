@@ -14,5 +14,6 @@ LOOP  LDB   R1, R7, #0
       BRnp  LOOP
 
       HALT
+      .FILL x3050
 
 .END

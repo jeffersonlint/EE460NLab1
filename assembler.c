@@ -14,7 +14,17 @@
 
 /* constants! */
 #define MAX_LINE_LENGTH 255
+#define MAX_LABEL_LEN 20
+#define MAX_SYMBOLS 255
 
+/*use to build symbol table*/
+typedef struct {
+	int address;
+	char label[MAX_LABEL_LEN + 1];	/* Question for the reader: Why do we need to add 1? */
+} TableEntry;
+TableEntry symbolTable[MAX_SYMBOLS];
+
+/*use in readAndParse as return values*/
 enum
 {
   DONE,
@@ -59,8 +69,9 @@ int main(int argc, char* argv[])
     lRet = readAndParse( inFile, lLine, &lLabel, &lOpcode, &lArg1, &lArg2, &lArg3, &lArg4 );
     if(lRet != DONE && lRet != EMPTY_LINE)
     {
-        fprintf(outFile, "First Pass, Line: %i;  OPCODE:  %s\n", x, lOpcode);
+        fprintf(outFile, "No label, no opcode:  %i\n", (lLabel==NULL&&lOpcode==NULL));
         x++;
+        if(lRet == EMPTY_LINE) printf("empty line!");
     }
   } while(lRet != DONE);
 
@@ -71,8 +82,8 @@ int main(int argc, char* argv[])
     lRet = readAndParse( inFile, lLine, &lLabel, &lOpcode, &lArg1, &lArg2, &lArg3, &lArg4 );
     if(lRet != DONE && lRet != EMPTY_LINE)
     {
-        fprintf(outFile, "Second Pass, Line: %i;  OPCODE:  %s\n", y, lOpcode);
-        y++;
+        //fprintf(outFile, "Second Pass, Line: %i;  OPCODE:  %s\n", y, lOpcode);
+        //y++;
     }
   } while(lRet != DONE);
 }
