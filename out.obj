@@ -1,19 +1,19 @@
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
-No label, no opcode:  0
+Line 1 Opcode:  .orig
+Line 2 Opcode:  
+Line 3 Opcode:  r7
+Line 4 Opcode:  r7
+Line 5 Opcode:  r7
+Line 6 Opcode:  r7
+Line 7 Opcode:  r7
+Line 8 Opcode:  ldb
+Line 9 Opcode:  r2
+Line 10 Opcode:  r1
+Line 11 Opcode:  r2
+Line 12 Opcode:  r7
+Line 13 Opcode:  r0
+Line 14 Opcode:  loop
+Line 15 Opcode:  
+Line 16 Opcode:  
+Line 17 Opcode:  .fill
+Line 18 Opcode:  
+Line 19 Opcode:  .end
