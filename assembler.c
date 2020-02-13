@@ -16,20 +16,20 @@
 #define MAX_LINE_LENGTH 255
 #define MAX_LABEL_LEN 20
 #define MAX_SYMBOLS 255
-#define NUM_OF_OPCODES 28
+#define NUM_OF_OPCODES 31
 
 /*use to build symbol table*/
 typedef struct {
 	int address;
-	char label[MAX_LABEL_LEN + 1];	/* Question for the reader: Why do we need to add 1? */
+	char label[MAX_LABEL_LEN + 1];
 } TableEntry;
 TableEntry symbolTable[MAX_SYMBOLS];
 
 /*use to determine if valid Opcode*/
-char* validOpcode[NUM_OF_OPCODES] = {"ADD", "AND", "BR", "BRn", "BRnz", "BRnzp", "BRz", "BRzp", "BRp", "BRnp",
-                        "HALT", "JMP", "JSR", "JSRR", "LDB", "LDW", "LEA", "NOP", "NOT", "RET",
-                        "LSHF", "RSHFL", "RSHFA", "RTI", "STB", "STW", "TRAP", "XOR", ".FILL", ".ORIG", ".END"};
-char* trapRoutines[4] = {"IN", "OUT", "GETC", "PUTS"};
+char* validOpcode[NUM_OF_OPCODES] = {"add", "and", "br", "brn", "brnz", "brnzp", "brz", "brzp", "brp", "brnp",
+                        "halt", "jmp", "jsr", "jsrr", "ldb", "ldw", "lea", "nop", "not", "ret",
+                        "lshf", "rshfl", "rshfa", "rti", "stb", "stw", "trap", "xor", ".fill", ".orig", ".end"};
+char* trapRoutines[4] = {"in", "out", "getc", "puts"};
 
 
 /*use in readAndParse as return values*/
@@ -77,9 +77,7 @@ int main(int argc, char* argv[])
     lRet = readAndParse( inFile, lLine, &lLabel, &lOpcode, &lArg1, &lArg2, &lArg3, &lArg4 );
     if(lRet != DONE && lRet != EMPTY_LINE)
     {
-        fprintf(outFile, "Line %i Opcode:  %s\n", x, lOpcode);
-        x++;
-        if(lRet == EMPTY_LINE) printf("empty line!");
+				
     }
   } while(lRet != DONE);
 
@@ -147,9 +145,10 @@ int readAndParse( FILE * pInfile, char * pLine, char ** pLabel, char** pOpcode, 
 
 int isOpcode(char* op)
 {
+	//printf("%s\n", op);
   for(int i=0; i<NUM_OF_OPCODES; i++)
   {
-    if(strcmp(op, validOpcode[i])==0)
+    if(strcmp(op, (validOpcode[i]))==0)
     {
       return 1;
     }
