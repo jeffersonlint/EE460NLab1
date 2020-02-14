@@ -44,6 +44,7 @@ enum
 int readAndParse(FILE* pInFile, char* pLine, char** pLabel, char** pOpcode, char** pArg1, char** pArg2, char** pArg3, char** pArg4);
 int isOpcode(char* op);
 int toNum(char* pStr);
+char* binaryStringToHexString(char* bStr);
 
 int main(int argc, char* argv[])
 {
@@ -105,6 +106,8 @@ int main(int argc, char* argv[])
     lRet = readAndParse( inFile, lLine, &lLabel, &lOpcode, &lArg1, &lArg2, &lArg3, &lArg4 );
     if(lRet != DONE && lRet != EMPTY_LINE)
     {
+				char* bInstruction[16]; //string representation of an instruction in BINARY
+
 				//we don't need to worry about this one! we already did what we need to do in the first pass
 				if(strcmp(lOpcode, ".orig")==0){/**/}
 				// "add", "and", "br", "brn", "brnz", "brnzp", "brz", "brzp", "brp", "brnp",
@@ -243,6 +246,8 @@ int main(int argc, char* argv[])
   } while(lRet != DONE);
 }
 
+  /*-------------------------------------------------------readAndParse--------------------------------------------------------------*/
+
 int readAndParse( FILE * pInfile, char * pLine, char ** pLabel, char** pOpcode, char ** pArg1, char ** pArg2, char ** pArg3, char ** pArg4)
 {
   char *lRet, *lPtr;
@@ -305,6 +310,8 @@ int readAndParse( FILE * pInfile, char * pLine, char ** pLabel, char** pOpcode, 
   return(OK);
 }
 
+  /*-------------------------------------------------------isOpcode--------------------------------------------------------------*/
+
 int isOpcode(char* op)
 {
 	//printf("%s\n", op);
@@ -317,6 +324,8 @@ int isOpcode(char* op)
 	}
   return -1;
 }
+
+  /*-------------------------------------------------------toNum--------------------------------------------------------------*/
 
 int toNum(char* pStr)
 {
@@ -383,4 +392,11 @@ int toNum(char* pStr)
         printf("Error: invalid operand, %s\n", orig_pStr);
         exit(4);  /* This has been changed from error code 3 to error code 4, see clarification 12 */
   }
+}
+
+  /*------------------------------------------------binaryStringToHexString----------------------------------------------------*/
+
+char* binaryStringToHexString(char* bStr)
+{
+	return "";
 }
