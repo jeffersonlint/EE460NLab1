@@ -19,9 +19,9 @@
 #define NUM_OF_OPCODES 31
 
 /*use to build symbol table*/
-typedef struct {
+typedef struct TableEntry {
 	int address;
-	char label[MAX_LABEL_LEN + 1];
+	char label[MAX_LABEL_LEN+1];
 } TableEntry;
 TableEntry symbolTable[MAX_SYMBOLS];
 
@@ -43,6 +43,7 @@ enum
 /* prototypes */
 int readAndParse(FILE* pInFile, char* pLine, char** pLabel, char** pOpcode, char** pArg1, char** pArg2, char** pArg3, char** pArg4);
 int isOpcode(char* op);
+int toNum(char* pStr);
 
 int main(int argc, char* argv[])
 {
@@ -72,12 +73,28 @@ int main(int argc, char* argv[])
   /*--------------------------------------------------------FIRST PASS--------------------------------------------------------------*/
   char lLine[MAX_LINE_LENGTH + 1], *lLabel, *lOpcode, *lArg1, *lArg2, *lArg3, *lArg4;
   int lRet;
-  int x=1;
+  int x=-1, tablePointer=0;
+	int start=0;
   do{
     lRet = readAndParse( inFile, lLine, &lLabel, &lOpcode, &lArg1, &lArg2, &lArg3, &lArg4 );
     if(lRet != DONE && lRet != EMPTY_LINE)
     {
-				
+				//get original start point
+				if(strcmp(lOpcode, ".orig")==0)
+				{
+					start = toNum("x3000");
+				}
+				//check to see if there's a lLabel
+				if(strcmp(lLabel, "")!=0)
+				{
+					symbolTable[tablePointer].address = start+(x*2)-4;
+					strcpy(symbolTable[tablePointer].label, lLabel);
+					tablePointer++;
+				}
+				//fprintf(outFile, "%i:  %s\t%s\t%s\n", start+(x*2), lLabel, lOpcode, lArg1);
+
+				//increment loop pointer
+				x++;
     }
   } while(lRet != DONE);
 
@@ -107,6 +124,19 @@ int readAndParse( FILE * pInfile, char * pLine, char ** pLabel, char** pOpcode, 
     pLine[i] = tolower(pLine[i]);
   }
   /* convert entire line to lowercase */
+	for(int i=0; pLine[i]!='\0'; i++)
+	{
+		while(pLine[i]==13)
+		{
+			int j=i;
+			for(j=i; pLine[j]!='\0'; j++)
+			{
+				pLine[j] = pLine[j+1];
+			}
+			pLine[j]='\0';
+		}
+	}
+
   *pLabel = *pOpcode = *pArg1 = *pArg2 = *pArg3 = *pArg4 = pLine + strlen(pLine);
 
   /* ignore the comments */
@@ -152,6 +182,73 @@ int isOpcode(char* op)
     {
       return 1;
     }
-  }
+	}
   return -1;
+}
+
+int toNum(char* pStr)
+{
+  char* t_ptr;
+  char* orig_pStr;
+  int t_length, k;
+  int lNum, lNeg = 0;
+  long int lNumLong;
+
+  orig_pStr = pStr;
+  if(*pStr == '#')                                /* decimal */
+  {
+    pStr++;
+    if(*pStr == '-')                                /* dec is negative */
+    {
+      lNeg = 1;
+      pStr++;
+    }
+    t_ptr = pStr;
+    t_length = strlen(t_ptr);
+    for(k=0;k < t_length;k++)
+    {
+      if (!isdigit(*t_ptr))
+      {
+         printf("Error: invalid decimal operand, %s\n",orig_pStr);
+         exit(4);
+      }
+      t_ptr++;
+    }
+    lNum = atoi(pStr);
+    if(lNeg)
+      lNum = -lNum;
+
+    return lNum;
+  }
+  else if(*pStr == 'x')        /* hex     */
+  {
+    pStr++;
+    if(*pStr == '-')                                /* hex is negative */
+    {
+      lNeg = 1;
+      pStr++;
+    }
+    t_ptr = pStr;
+    t_length = strlen(t_ptr);
+    for(k=0;k < t_length;k++)
+    {
+      if (!isxdigit(*t_ptr))
+      {
+				 //printf("%s\n", t_ptr);
+         printf("Error: invalid hex operand, %s\n",orig_pStr);
+         exit(4);
+      }
+      t_ptr++;
+    }
+    lNumLong = strtol(pStr, NULL, 16);    /* convert hex string into integer */
+    lNum = (lNumLong > INT_MAX)? INT_MAX : lNumLong;
+    if(lNeg)
+      lNum = -lNum;
+    return lNum;
+  }
+  else
+  {
+        printf("Error: invalid operand, %s\n", orig_pStr);
+        exit(4);  /* This has been changed from error code 3 to error code 4, see clarification 12 */
+  }
 }

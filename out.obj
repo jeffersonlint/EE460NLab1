@@ -1,19 +1,16 @@
-Line 1 Opcode:  .orig
-Line 2 Opcode:  
-Line 3 Opcode:  and
-Line 4 Opcode:  add
-Line 5 Opcode:  lshf
-Line 6 Opcode:  add
-Line 7 Opcode:  lshf
-Line 8 Opcode:  ldb
-Line 9 Opcode:  ldb
-Line 10 Opcode:  stb
-Line 11 Opcode:  stb
-Line 12 Opcode:  add
-Line 13 Opcode:  add
-Line 14 Opcode:  brnp
-Line 15 Opcode:  
-halt, , , , 
-Line 17 Opcode:  .fill
-Line 18 Opcode:  
-Line 19 Opcode:  .end
+12286:  	.orig	x3000
+12288:  	and	r7
+12290:  	add	r7
+12292:  	lshf	r7
+12294:  	add	r7
+12296:  	lshf	r7
+12298:  loop	ldb	r1
+12300:  	ldb	r2
+12302:  	stb	r1
+12304:  	stb	r2
+12306:  	add	r7
+12308:  	add	r0
+12310:  	brnp	loop
+12312:  	halt	
+12314:  	.fill	x3050
+12316:  	.end	
