@@ -119,6 +119,8 @@ int main(int argc, char* argv[])
 				}
 				else if(strcmp(lOpcode, "and")==0)
 				{
+					char* binInstruction = "0101";
+					
 					fprintf(outFile, "need to do this opcode!\n");
 				}
 				else if(strcmp(lOpcode, "br")==0)
@@ -398,5 +400,122 @@ int toNum(char* pStr)
 
 char* binaryStringToHexString(char* bStr)
 {
+	char* hexString;
+	hexString[0] = 'x';
+	int pt = 0;
+	int hpt = 1;
+	for(int i=0; i<4; i++)
+	{
+			if(bStr[pt]==0)
+			{
+				if(bStr[pt+1]==0)
+				{
+					if(bStr[pt+2]==0)
+					{
+						if(bStr[pt+3]==0)
+						{
+							hexString[hpt]='0'; //0000
+						}
+						else
+						{
+							hexString[hpt]='1'; //0001
+						}
+					}
+					else
+					{
+						if(bStr[pt+3]==0)
+						{
+							hexString[hpt]='2'; //0010
+						}
+						else
+						{
+							hexString[hpt]='3'; //0011
+						}
+					}
+				}
+				else
+				{
+					if(bStr[pt+2]==0)
+					{
+						if(bStr[pt+3]==0)
+						{
+							hexString[hpt]='4'; //0100
+						}
+						else
+						{
+							hexString[hpt]='5'; //0101
+						}
+					}
+					else
+					{
+						if(bStr[pt+3]==0)
+						{
+							hexString[hpt]='6'; //0110
+						}
+						else
+						{
+							hexString[hpt]='7'; //0111
+						}
+					}
+				}
+			}
+			else
+			{
+				if(bStr[pt+1]==0)
+				{
+					if(bStr[pt+2]==0)
+					{
+						if(bStr[pt+3]==0)
+						{
+							hexString[hpt]='8'; //1000
+						}
+						else
+						{
+							hexString[hpt]='9'; //1001
+						}
+					}
+					else
+					{
+						if(bStr[pt+3]==0)
+						{
+							hexString[hpt]='A'; //1010
+						}
+						else
+						{
+							hexString[hpt]='B'; //1011
+						}
+					}
+				}
+				else
+				{
+					if(bStr[pt+2]==0)
+					{
+						if(bStr[pt+3]==0)
+						{
+							hexString[hpt]='C'; //1100
+						}
+						else
+						{
+							hexString[hpt]='D'; //1101
+						}
+					}
+					else
+					{
+						if(bStr[pt+3]==0)
+						{
+							hexString[hpt]='E'; //1110
+						}
+						else
+						{
+							hexString[hpt]='F'; //1111
+						}
+					}
+				}
+			}
+
+			pt+=4;
+			hpt++;
+	}
+
 	return "";
 }
