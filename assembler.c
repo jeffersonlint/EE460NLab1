@@ -100,13 +100,145 @@ int main(int argc, char* argv[])
 
   /*-------------------------------------------------------SECOND PASS--------------------------------------------------------------*/
   rewind(inFile);
-  int y=1;
+  int y=-1;
   do{
     lRet = readAndParse( inFile, lLine, &lLabel, &lOpcode, &lArg1, &lArg2, &lArg3, &lArg4 );
     if(lRet != DONE && lRet != EMPTY_LINE)
     {
-        //fprintf(outFile, "Second Pass, Line: %i;  OPCODE:  %s\n", y, lOpcode);
-        //y++;
+				//we don't need to worry about this one! we already did what we need to do in the first pass
+				if(strcmp(lOpcode, ".orig")==0){/**/}
+				// "add", "and", "br", "brn", "brnz", "brnzp", "brz", "brzp", "brp", "brnp",
+				// "halt", "jmp", "jsr", "jsrr", "ldb", "ldw", "lea", "nop", "not", "ret",
+				// "lshf", "rshfl", "rshfa", "rti", "stb", "stw", "trap", "xor", ".fill", ".orig", ".end"
+				else if(strcmp(lOpcode, "add")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "and")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "br")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "brn")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "brnz")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "brnzp")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "brz")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "brzp")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "brp")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "brnp")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "halt")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "jmp")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "jsr")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "jsrr")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "ldb")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "ldw")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "lea")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "nop")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "not")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "ret")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "lshf")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "rshfl")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "rshfa")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "rti")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "stb")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "stw")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "trap")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, "xor")==0)
+				{
+					fprintf(outFile, "need to do this opcode!\n");
+				}
+				else if(strcmp(lOpcode, ".fill")==0)
+				{
+					fprintf(outFile, "%s\n", lArg1);
+				}
+				else if(strcmp(lOpcode, ".end")==0)
+				{
+					break;
+				}
+				//invalid opcode
+				else
+				{
+					printf("Invalid opcode encountered; assembly process terminated\n");
+					exit(2);
+				}
+
+				//increment loop pointer
+				y++;
     }
   } while(lRet != DONE);
 }

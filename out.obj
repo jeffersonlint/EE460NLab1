@@ -1,16 +1,11 @@
-12286:  	.orig	x3000
-12288:  	and	r7
-12290:  	add	r7
-12292:  	lshf	r7
-12294:  	add	r7
-12296:  	lshf	r7
-12298:  loop	ldb	r1
-12300:  	ldb	r2
-12302:  	stb	r1
-12304:  	stb	r2
-12306:  	add	r7
-12308:  	add	r0
-12310:  	brnp	loop
-12312:  	halt	
-12314:  	.fill	x3050
-12316:  	.end	
+need to do this opcode!
+need to do this opcode!
+need to do this opcode!
+need to do this opcode!
+need to do this opcode!
+need to do this opcode!
+need to do this opcode!
+need to do this opcode!
+need to do this opcode!
+need to do this opcode!
+need to do this opcode!
