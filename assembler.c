@@ -112,8 +112,8 @@ int main(int argc, char* argv[])
 				if(strcmp(lOpcode, ".orig")==0){/**/}
 				// OPCODES THAT STILL NEED TO BE WRITTEN
 				// "br", "brn", "brnz", "brnzp", "brz", "brzp", "brp", "brnp",
-				// "halt", "jmp", "jsr", "jsrr", "lea", "not",
-				// "lshf", "rshfl", "rshfa", "trap"
+				// "jmp", "jsr", "jsrr", "ldb", "ldw", "lea", "not",
+				// "lshf", "rshfl", "rshfa", "stb"
   /*-------------------------------------------------------ADD--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "add")==0)
 				{
@@ -272,9 +272,10 @@ int main(int argc, char* argv[])
 				{
 					fprintf(outFile, "need to do this opcode!\n");
 				}
+	/*------------------------------------------------HALT----------------------------------------------------*/
 				else if(strcmp(lOpcode, "halt")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					fprintf(outFile, "xF025\n");
 				}
 				else if(strcmp(lOpcode, "jmp")==0)
 				{
@@ -504,10 +505,16 @@ int main(int argc, char* argv[])
 	/*------------------------------------------------TRAP----------------------------------------------------*/				
 				else if(strcmp(lOpcode, "trap")==0)
 				{
-					char binInstruction[16] = "11110000";
+					char binInstruction[16] = "11110000\0";
 					if(lArg1[0]=='x')
 					{
-						
+						int vector = toNum(lArg1);
+						for(int i=0; i<8; i++)
+						{
+							int vectorShift = vector>>(7-i);
+							if(vectorShift&1==1) strcat(binInstruction, "1");
+							else strcat(binInstruction, "0");
+						}
 					}
 					else
 					{
@@ -515,7 +522,8 @@ int main(int argc, char* argv[])
 						exit(3);
 					}
 
-					fprintf(outFile, "need to do this opcode!\n");
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
 	/*------------------------------------------------XOR----------------------------------------------------*/
 				else if(strcmp(lOpcode, "xor")==0)
