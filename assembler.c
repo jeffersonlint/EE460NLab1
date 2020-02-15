@@ -401,7 +401,7 @@ int main(int argc, char* argv[])
 	/*------------------------------------------------LSHF----------------------------------------------------*/
 				else if(strcmp(lOpcode, "lshf")==0)
 				{
-					char binInstruction[16] = "1101\0"
+					char binInstruction[16] = "1101\0";
 					switch(regToInt(lArg1)){
 						case(0): strncat(binInstruction, "000\0", 4); break;
 						case(1): strncat(binInstruction, "001\0", 4); break;
@@ -442,7 +442,7 @@ int main(int argc, char* argv[])
 	/*------------------------------------------------RSHFL----------------------------------------------------*/				
 				else if(strcmp(lOpcode, "rshfl")==0)
 				{
-					char binInstruction[16] = "1101\0"
+					char binInstruction[16] = "1101\0";
 					switch(regToInt(lArg1)){
 						case(0): strncat(binInstruction, "000\0", 4); break;
 						case(1): strncat(binInstruction, "001\0", 4); break;
@@ -483,7 +483,7 @@ int main(int argc, char* argv[])
 	/*------------------------------------------------RSHFA----------------------------------------------------*/			
 				else if(strcmp(lOpcode, "rshfa")==0)
 				{
-					char binInstruction[16] = "1101\0"
+					char binInstruction[16] = "1101\0";
 					switch(regToInt(lArg1)){
 						case(0): strncat(binInstruction, "000\0", 4); break;
 						case(1): strncat(binInstruction, "001\0", 4); break;
