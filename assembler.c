@@ -335,8 +335,47 @@ int main(int argc, char* argv[])
 				{
 					fprintf(outFile, "need to do this opcode!\n");
 				}
+	/*------------------------------------------------STW----------------------------------------------------*/
 				else if(strcmp(lOpcode, "stw")==0)
 				{
+					char binInstruction[16] = "0111\0"
+
+					switch(regToInt(lArg1)){
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected\n", ); exit(4);
+					}
+					switch(regToInt(lArg2)){
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected\n"); exit(4);
+					}
+
+					//Get offset
+					//Immediate
+					if(lArg3[0] == 'x' || lArg3[0] == '#'){
+						int offset6 = toNum(lArg3);
+						if(offset6 > 31 || offset6 < -32){
+							printf("Invalid constant detected\n")exit(3);
+						}
+						for(int i = 0; i < 6; i++){				//Copy offset
+							int shift = offset6>>(5-i);
+							if(shift&1 == 1) strcat(binInstruction, "1");
+							else strcat(binInstruction, "0");
+						}
+					}
 					fprintf(outFile, "need to do this opcode!\n");
 				}
 				else if(strcmp(lOpcode, "trap")==0)
