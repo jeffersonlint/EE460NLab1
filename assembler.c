@@ -112,8 +112,8 @@ int main(int argc, char* argv[])
 				if(strcmp(lOpcode, ".orig")==0){/**/}
 				// OPCODES THAT STILL NEED TO BE WRITTEN
 				// "br", "brn", "brnz", "brnzp", "brz", "brzp", "brp", "brnp",
-				// "halt", "jmp", "jsr", "jsrr", "ldb", "ldw", "lea", "nop", "not", "ret",
-				// "lshf", "rshfl", "rshfa", "rti", "stb", "stw", "trap"
+				// "halt", "jmp", "jsr", "jsrr", "ldb", "ldw", "lea", "not",
+				// "lshf", "rshfl", "rshfa", "stb", "trap"
   /*-------------------------------------------------------ADD--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "add")==0)
 				{
@@ -338,7 +338,7 @@ int main(int argc, char* argv[])
 	/*------------------------------------------------STW----------------------------------------------------*/
 				else if(strcmp(lOpcode, "stw")==0)
 				{
-					char binInstruction[16] = "0111\0"
+					char binInstruction[16] = "0111\0";
 
 					switch(regToInt(lArg1)){
 						case(0): strncat(binInstruction, "000\0", 4); break;
@@ -349,7 +349,7 @@ int main(int argc, char* argv[])
 						case(5): strncat(binInstruction, "101\0", 4); break;
 						case(6): strncat(binInstruction, "110\0", 4); break;
 						case(7): strncat(binInstruction, "111\0", 4); break;
-						case(-1): printf("invalid register operand detected\n", ); exit(4);
+						case(-1): printf("invalid register operand detected\n"); exit(4);
 					}
 					switch(regToInt(lArg2)){
 						case(0): strncat(binInstruction, "000\0", 4); break;
@@ -368,7 +368,8 @@ int main(int argc, char* argv[])
 					if(lArg3[0] == 'x' || lArg3[0] == '#'){
 						int offset6 = toNum(lArg3);
 						if(offset6 > 31 || offset6 < -32){
-							printf("Invalid constant detected\n")exit(3);
+							printf("Invalid constant detected\n");
+							exit(3);
 						}
 						for(int i = 0; i < 6; i++){				//Copy offset
 							int shift = offset6>>(5-i);
@@ -376,10 +377,23 @@ int main(int argc, char* argv[])
 							else strcat(binInstruction, "0");
 						}
 					}
-					fprintf(outFile, "need to do this opcode!\n");
+
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
 				else if(strcmp(lOpcode, "trap")==0)
 				{
+					char binInstruction[16] = "11110000";
+					if(lArg1[0]=='x')
+					{
+						
+					}
+					else
+					{
+						printf("Invalid constant; needs to be hex");
+						exit(3);
+					}
+
 					fprintf(outFile, "need to do this opcode!\n");
 				}
 	/*------------------------------------------------XOR----------------------------------------------------*/
