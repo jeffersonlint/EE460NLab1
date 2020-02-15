@@ -107,13 +107,12 @@ int main(int argc, char* argv[])
     lRet = readAndParse( inFile, lLine, &lLabel, &lOpcode, &lArg1, &lArg2, &lArg3, &lArg4 );
     if(lRet != DONE && lRet != EMPTY_LINE)
     {
-
 				//we don't need to worry about this one! we already did what we need to do in the first pass
 				if(strcmp(lOpcode, ".orig")==0){/**/}
 				// OPCODES THAT STILL NEED TO BE WRITTEN
 				// "br", "brn", "brnz", "brnzp", "brz", "brzp", "brp", "brnp",
-				// "jmp", "jsr", "jsrr", "lea", "not",
-				// "lshf", "rshfl", "rshfa", 
+				// "jsr", "lea"
+				// "lshf", "rshfl", "rshfa",
   /*-------------------------------------------------------ADD--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "add")==0)
 				{
@@ -277,19 +276,51 @@ int main(int argc, char* argv[])
 				{
 					fprintf(outFile, "xF025\n");
 				}
+	/*------------------------------------------------JMP----------------------------------------------------*/
 				else if(strcmp(lOpcode, "jmp")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "1100000\0";
+					switch(regToInt(lArg1))
+					{
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected; assembly process halted\n"); exit(4);
+					}
+					strcat(binInstruction, "000000");
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
 				else if(strcmp(lOpcode, "jsr")==0)
 				{
 					fprintf(outFile, "need to do this opcode!\n");
 				}
+	/*------------------------------------------------JSRR----------------------------------------------------*/
 				else if(strcmp(lOpcode, "jsrr")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "0100000\0";
+					switch(regToInt(lArg1))
+					{
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected; assembly process halted\n"); exit(4);
+					}
+					strcat(binInstruction, "000000");
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
-	/*------------------------------------------------LDB----------------------------------------------------*/			
+	/*------------------------------------------------LDB----------------------------------------------------*/
 				else if(strcmp(lOpcode, "ldb")==0)
 				{
 					char binInstruction[16] = "0010\0";
@@ -335,7 +366,7 @@ int main(int argc, char* argv[])
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
-	/*------------------------------------------------LDW----------------------------------------------------*/		
+	/*------------------------------------------------LDW----------------------------------------------------*/
 				else if(strcmp(lOpcode, "ldw")==0)
 				{
 					char binInstruction[16] = "0110\0";
@@ -389,9 +420,36 @@ int main(int argc, char* argv[])
 				{
 					fprintf(outFile, "x0000\n");
 				}
+	/*------------------------------------------------NOT----------------------------------------------------*/
 				else if(strcmp(lOpcode, "not")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "1001\0";
+
+					switch(regToInt(lArg1)){
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected\n"); exit(4);
+					}
+					switch(regToInt(lArg2)){
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected\n"); exit(4);
+					}
+					strcat(binInstruction, "111111");
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
 	/*------------------------------------------------RET----------------------------------------------------*/
 				else if(strcmp(lOpcode, "ret")==0)
@@ -502,7 +560,7 @@ int main(int argc, char* argv[])
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
-	/*------------------------------------------------TRAP----------------------------------------------------*/				
+	/*------------------------------------------------TRAP----------------------------------------------------*/
 				else if(strcmp(lOpcode, "trap")==0)
 				{
 					char binInstruction[16] = "11110000\0";
