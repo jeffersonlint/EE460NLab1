@@ -5,6 +5,8 @@
       LSHF  R7, R7, #7
       ADD   R7, R7, #-12
       LSHF  R7, R7, #2  ;R7 contains x3050
+      RSHFL R7, R0, #3
+      RSHFA R7, R0, #4
 LOOP  LDB   R1, R7, #0
       LDB   R2, R7, #1
       STB   R1, R7, #1
