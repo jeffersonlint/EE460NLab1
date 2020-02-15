@@ -45,6 +45,7 @@ int readAndParse(FILE* pInFile, char* pLine, char** pLabel, char** pOpcode, char
 int isOpcode(char* op);
 int toNum(char* pStr);
 char* binaryStringToHexString(char* bStr);
+int regToInt(char* arg);
 
 int main(int argc, char* argv[])
 {
@@ -106,22 +107,138 @@ int main(int argc, char* argv[])
     lRet = readAndParse( inFile, lLine, &lLabel, &lOpcode, &lArg1, &lArg2, &lArg3, &lArg4 );
     if(lRet != DONE && lRet != EMPTY_LINE)
     {
-				char* bInstruction[16]; //string representation of an instruction in BINARY
 
 				//we don't need to worry about this one! we already did what we need to do in the first pass
 				if(strcmp(lOpcode, ".orig")==0){/**/}
-				// "add", "and", "br", "brn", "brnz", "brnzp", "brz", "brzp", "brp", "brnp",
+				// OPCODES THAT STILL NEED TO BE WRITTEN
+				// "br", "brn", "brnz", "brnzp", "brz", "brzp", "brp", "brnp",
 				// "halt", "jmp", "jsr", "jsrr", "ldb", "ldw", "lea", "nop", "not", "ret",
-				// "lshf", "rshfl", "rshfa", "rti", "stb", "stw", "trap", "xor", ".fill", ".orig", ".end"
+				// "lshf", "rshfl", "rshfa", "rti", "stb", "stw", "trap"
+  /*-------------------------------------------------------ADD--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "add")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "0001\0";
+					switch(regToInt(lArg1))
+					{
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected; assembly process halted\n"); exit(4);
+					}
+					switch(regToInt(lArg2))
+					{
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected; assembly process halted\n"); exit(4);
+					}
+					//immediate mode
+					if(lArg3[0]=='x' || lArg3[0]=='#')
+					{
+						int imm5 = toNum(lArg3);
+						if(imm5>15 || imm5<-16) {printf("invalid constant detected, assembly process halted"); exit(3);}
+						strcat(binInstruction, "1");
+						for(int i=0; i<5; i++)
+						{
+							int imm5shift = imm5>>(4-i);
+							if(imm5shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					//register mode
+					else
+					{
+						strcat(binInstruction, "000");
+
+						switch(regToInt(lArg3))
+						{
+							case(0): strncat(binInstruction, "000\0", 4); break;
+							case(1): strncat(binInstruction, "001\0", 4); break;
+							case(2): strncat(binInstruction, "010\0", 4); break;
+							case(3): strncat(binInstruction, "011\0", 4); break;
+							case(4): strncat(binInstruction, "100\0", 4); break;
+							case(5): strncat(binInstruction, "101\0", 4); break;
+							case(6): strncat(binInstruction, "110\0", 4); break;
+							case(7): strncat(binInstruction, "111\0", 4); break;
+							case(-1): printf("invalid register operand detected; assembly process halted\n"); exit(4);
+						}
+
+					}
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
+/*-------------------------------------------------------AND--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "and")==0)
 				{
-					char* binInstruction = "0101";
-					
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "0101\0";
+					switch(regToInt(lArg1))
+					{
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected; assembly process halted\n"); exit(4);
+					}
+					switch(regToInt(lArg2))
+					{
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected; assembly process halted\n"); exit(4);
+					}
+					//immediate mode
+					if(lArg3[0]=='x' || lArg3[0]=='#')
+					{
+						int imm5 = toNum(lArg3);
+						if(imm5>15 || imm5<-16) {printf("invalid constant detected, assembly process halted"); exit(3);}
+						strcat(binInstruction, "1");
+						for(int i=0; i<5; i++)
+						{
+							int imm5shift = imm5>>(4-i);
+							if(imm5shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					//register mode
+					else
+					{
+						strcat(binInstruction, "000");
+
+						switch(regToInt(lArg3))
+						{
+							case(0): strncat(binInstruction, "000\0", 4); break;
+							case(1): strncat(binInstruction, "001\0", 4); break;
+							case(2): strncat(binInstruction, "010\0", 4); break;
+							case(3): strncat(binInstruction, "011\0", 4); break;
+							case(4): strncat(binInstruction, "100\0", 4); break;
+							case(5): strncat(binInstruction, "101\0", 4); break;
+							case(6): strncat(binInstruction, "110\0", 4); break;
+							case(7): strncat(binInstruction, "111\0", 4); break;
+							case(-1): printf("invalid register operand detected; assembly process halted\n"); exit(4);
+						}
+
+					}
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
 				else if(strcmp(lOpcode, "br")==0)
 				{
@@ -183,17 +300,19 @@ int main(int argc, char* argv[])
 				{
 					fprintf(outFile, "need to do this opcode!\n");
 				}
+	/*------------------------------------------------NOP----------------------------------------------------*/
 				else if(strcmp(lOpcode, "nop")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					fprintf(outFile, "x0000\n");
 				}
 				else if(strcmp(lOpcode, "not")==0)
 				{
 					fprintf(outFile, "need to do this opcode!\n");
 				}
+	/*------------------------------------------------RET----------------------------------------------------*/
 				else if(strcmp(lOpcode, "ret")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					fprintf(outFile, "xC1C0\n");
 				}
 				else if(strcmp(lOpcode, "lshf")==0)
 				{
@@ -207,9 +326,10 @@ int main(int argc, char* argv[])
 				{
 					fprintf(outFile, "need to do this opcode!\n");
 				}
+	/*------------------------------------------------RTI----------------------------------------------------*/
 				else if(strcmp(lOpcode, "rti")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					fprintf(outFile, "x8000\n");
 				}
 				else if(strcmp(lOpcode, "stb")==0)
 				{
@@ -223,9 +343,68 @@ int main(int argc, char* argv[])
 				{
 					fprintf(outFile, "need to do this opcode!\n");
 				}
+	/*------------------------------------------------XOR----------------------------------------------------*/
 				else if(strcmp(lOpcode, "xor")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "1001\0";
+					switch(regToInt(lArg1))
+					{
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected; assembly process halted\n"); exit(4);
+					}
+					switch(regToInt(lArg2))
+					{
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected; assembly process halted\n"); exit(4);
+					}
+					//immediate mode
+					if(lArg3[0]=='x' || lArg3[0]=='#')
+					{
+						int imm5 = toNum(lArg3);
+						if(imm5>15 || imm5<-16) {printf("invalid constant detected, assembly process halted"); exit(3);}
+						strcat(binInstruction, "1");
+						for(int i=0; i<5; i++)
+						{
+							int imm5shift = imm5>>(4-i);
+							if(imm5shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					//register mode
+					else
+					{
+						strcat(binInstruction, "000");
+
+						switch(regToInt(lArg3))
+						{
+							case(0): strncat(binInstruction, "000\0", 4); break;
+							case(1): strncat(binInstruction, "001\0", 4); break;
+							case(2): strncat(binInstruction, "010\0", 4); break;
+							case(3): strncat(binInstruction, "011\0", 4); break;
+							case(4): strncat(binInstruction, "100\0", 4); break;
+							case(5): strncat(binInstruction, "101\0", 4); break;
+							case(6): strncat(binInstruction, "110\0", 4); break;
+							case(7): strncat(binInstruction, "111\0", 4); break;
+							case(-1): printf("invalid register operand detected; assembly process halted\n"); exit(4);
+						}
+
+					}
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
 				else if(strcmp(lOpcode, ".fill")==0)
 				{
@@ -400,122 +579,135 @@ int toNum(char* pStr)
 
 char* binaryStringToHexString(char* bStr)
 {
-	char* hexString;
-	hexString[0] = 'x';
+	char hexString[5] = "x\0";
 	int pt = 0;
 	int hpt = 1;
 	for(int i=0; i<4; i++)
 	{
-			if(bStr[pt]==0)
+			if(bStr[pt]=='0')
 			{
-				if(bStr[pt+1]==0)
+				if(bStr[pt+1]=='0')
 				{
-					if(bStr[pt+2]==0)
+					if(bStr[pt+2]=='0')
 					{
-						if(bStr[pt+3]==0)
+						if(bStr[pt+3]=='0')
 						{
-							hexString[hpt]='0'; //0000
+							strncat(hexString, "0\0", 2); //0000
 						}
 						else
 						{
-							hexString[hpt]='1'; //0001
+							strncat(hexString, "1\0", 2); //0001
 						}
 					}
 					else
 					{
-						if(bStr[pt+3]==0)
+						if(bStr[pt+3]=='0')
 						{
-							hexString[hpt]='2'; //0010
+							strncat(hexString, "2\0", 2); //0010
 						}
 						else
 						{
-							hexString[hpt]='3'; //0011
+							strncat(hexString, "3\0", 2); //0011
 						}
 					}
 				}
 				else
 				{
-					if(bStr[pt+2]==0)
+					if(bStr[pt+2]=='0')
 					{
-						if(bStr[pt+3]==0)
+						if(bStr[pt+3]=='0')
 						{
-							hexString[hpt]='4'; //0100
+							strncat(hexString, "4\0", 2); //0100
 						}
 						else
 						{
-							hexString[hpt]='5'; //0101
+							strncat(hexString, "5\0", 2); //0101
 						}
 					}
 					else
 					{
-						if(bStr[pt+3]==0)
+						if(bStr[pt+3]=='0')
 						{
-							hexString[hpt]='6'; //0110
+							strncat(hexString, "6\0", 2); //0110
 						}
 						else
 						{
-							hexString[hpt]='7'; //0111
+							strncat(hexString, "7\0", 2); //0111
 						}
 					}
 				}
 			}
 			else
 			{
-				if(bStr[pt+1]==0)
+				if(bStr[pt+1]=='0')
 				{
-					if(bStr[pt+2]==0)
+					if(bStr[pt+2]=='0')
 					{
-						if(bStr[pt+3]==0)
+						if(bStr[pt+3]=='0')
 						{
-							hexString[hpt]='8'; //1000
+							strncat(hexString, "8\0", 2); //1000
 						}
 						else
 						{
-							hexString[hpt]='9'; //1001
+							strncat(hexString, "9\0", 2); //1001
 						}
 					}
 					else
 					{
-						if(bStr[pt+3]==0)
+						if(bStr[pt+3]=='0')
 						{
-							hexString[hpt]='A'; //1010
+							strncat(hexString, "A\0", 2); //1010
 						}
 						else
 						{
-							hexString[hpt]='B'; //1011
+							strncat(hexString, "B\0", 2); //1011
 						}
 					}
 				}
 				else
 				{
-					if(bStr[pt+2]==0)
+					if(bStr[pt+2]=='0')
 					{
-						if(bStr[pt+3]==0)
+						if(bStr[pt+3]=='0')
 						{
-							hexString[hpt]='C'; //1100
+							strncat(hexString, "C\0", 2); //1100
 						}
 						else
 						{
-							hexString[hpt]='D'; //1101
+							strncat(hexString, "D\0", 2); //1101
 						}
 					}
 					else
 					{
-						if(bStr[pt+3]==0)
+						if(bStr[pt+3]=='0')
 						{
-							hexString[hpt]='E'; //1110
+							strncat(hexString, "E\0", 2); //1110
 						}
 						else
 						{
-							hexString[hpt]='F'; //1111
+							strncat(hexString, "F\0", 2); //1111
 						}
 					}
 				}
 			}
-
 			pt+=4;
 			hpt++;
 	}
+	char* hexPt = hexString;
+	return hexPt;
+}
 
-	return "";
+  /*------------------------------------------------binaryStringToHexString----------------------------------------------------*/
+
+int regToInt(char* arg)
+{
+	if(strcmp(arg, "r0")==0) return 0;
+	else if(strcmp(arg, "r1")==0) return 1;
+	else if(strcmp(arg, "r2")==0) return 2;
+	else if(strcmp(arg, "r3")==0) return 3;
+	else if(strcmp(arg, "r4")==0) return 4;
+	else if(strcmp(arg, "r5")==0) return 5;
+	else if(strcmp(arg, "r6")==0) return 6;
+	else if(strcmp(arg, "r7")==0) return 7;
+	else return -1;
 }
