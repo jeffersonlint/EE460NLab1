@@ -398,18 +398,129 @@ int main(int argc, char* argv[])
 				{
 					fprintf(outFile, "xC1C0\n");
 				}
+	/*------------------------------------------------LSHF----------------------------------------------------*/
 				else if(strcmp(lOpcode, "lshf")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "1101\0"
+					switch(regToInt(lArg1)){
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected\n"); exit(4);
+					}
+					switch(regToInt(lArg2)){
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected\n"); exit(4);
+					}
+					if(lArg3[0]=='x' || lArg3[0]=='#')
+					{
+						int imm4 = toNum(lArg3);
+						if(imm4>15 || imm4<0) {printf("invalid constant detected, assembly process halted"); exit(3);}
+						strcat(binInstruction, "00");
+						for(int i=0; i<4; i++)
+						{
+							int imm4shift = imm4>>(3-i);
+							if(imm4shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
+	/*------------------------------------------------RSHFL----------------------------------------------------*/				
 				else if(strcmp(lOpcode, "rshfl")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "1101\0"
+					switch(regToInt(lArg1)){
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected\n"); exit(4);
+					}
+					switch(regToInt(lArg2)){
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected\n"); exit(4);
+					}
+					if(lArg3[0]=='x' || lArg3[0]=='#')
+					{
+						int imm4 = toNum(lArg3);
+						if(imm4>15 || imm4<0) {printf("invalid constant detected, assembly process halted"); exit(3);}
+						strcat(binInstruction, "01");
+						for(int i=0; i<4; i++)
+						{
+							int imm4shift = imm4>>(3-i);
+							if(imm4shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
+	/*------------------------------------------------RSHFA----------------------------------------------------*/			
 				else if(strcmp(lOpcode, "rshfa")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
-				}
+					char binInstruction[16] = "1101\0"
+					switch(regToInt(lArg1)){
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected\n"); exit(4);
+					}
+					switch(regToInt(lArg2)){
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected\n"); exit(4);
+					}
+					if(lArg3[0]=='x' || lArg3[0]=='#')
+					{
+						int imm4 = toNum(lArg3);
+						if(imm4>15 || imm4<0) {printf("invalid constant detected, assembly process halted"); exit(3);}
+						strcat(binInstruction, "11");
+						for(int i=0; i<4; i++)
+						{
+							int imm4shift = imm4>>(3-i);
+							if(imm4shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
+					}
 	/*------------------------------------------------RTI----------------------------------------------------*/
 				else if(strcmp(lOpcode, "rti")==0)
 				{
