@@ -497,7 +497,7 @@ int main(int argc, char* argv[])
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
-	/*------------------------------------------------RSHFL----------------------------------------------------*/				
+	/*------------------------------------------------RSHFL----------------------------------------------------*/
 				else if(strcmp(lOpcode, "rshfl")==0)
 				{
 					char binInstruction[16] = "1101\0";
@@ -538,7 +538,7 @@ int main(int argc, char* argv[])
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
-	/*------------------------------------------------RSHFA----------------------------------------------------*/			
+	/*------------------------------------------------RSHFA----------------------------------------------------*/
 				else if(strcmp(lOpcode, "rshfa")==0)
 				{
 					char binInstruction[16] = "1101\0";
