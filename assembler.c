@@ -112,7 +112,6 @@ int main(int argc, char* argv[])
 				// OPCODES THAT STILL NEED TO BE WRITTEN
 				// "br", "brn", "brnz", "brnzp", "brz", "brzp", "brp", "brnp",
 				// "jsr", "lea"
-				// "lshf", "rshfl", "rshfa",
   /*-------------------------------------------------------ADD--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "add")==0)
 				{
