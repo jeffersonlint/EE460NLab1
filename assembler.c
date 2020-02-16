@@ -295,9 +295,25 @@ int main(int argc, char* argv[])
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
+	/*------------------------------------------------JSR----------------------------------------------------*/				
 				else if(strcmp(lOpcode, "jsr")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "01001\0";
+					if (lArg1[0] == 'x' || lArg1[0] == '#'){	//If it is a numeric offset
+						printf("Invalid Constant detected\n");
+						exit(3);
+					}else{	//If it is a label offset
+						//Get label name
+							//Check if valid label
+							//If valid continue, otherwise exit code 0
+						//Get current address
+						//See if address of label falls into range of acceptable values
+							//Range of acceptable values is (-1024 to 1023)
+						//If valid compute 
+
+					}
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
 	/*------------------------------------------------JSRR----------------------------------------------------*/
 				else if(strcmp(lOpcode, "jsrr")==0)
