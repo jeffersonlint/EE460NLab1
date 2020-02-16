@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
 				//check to see if there's a lLabel
 				if(strcmp(lLabel, "")!=0)
 				{
-					symbolTable[tablePointer].address = start+(x*2)-4;
+					symbolTable[tablePointer].address = start+(x*2);
 					strcpy(symbolTable[tablePointer].label, lLabel);
 					tablePointer++;
 				}
@@ -238,42 +238,378 @@ int main(int argc, char* argv[])
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
+	/*-------------------------------------------------------BR--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "br")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "0000000\0";
+					//value mode
+					if(lArg1[0]=='x' || lArg1[0]=='#')
+					{
+						int offset9 = toNum(lArg1);
+						for(int i=0; i<9; i++)
+						{
+							int offset9shift = offset9>>(8-i);
+							if(offset9shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					//label mode
+					else
+					{
+						int labelFound = 0;
+						for(int i=0; i<MAX_SYMBOLS; i++)
+						{
+							if(strcmp(symbolTable[i].label, lArg1)==0)
+							{
+								labelFound=1;
+								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+
+								for(int j=0; j<9; j++)
+								{
+									int offset9shift = offset9>>(8-j);
+									if(offset9shift&1==1) {strcat(binInstruction, "1");}
+									else  {strcat(binInstruction, "0");}
+
+								}
+							}
+						}
+						//if it breaks out of the loop, then the label does not exist in the symbol table
+						if(labelFound==0)
+						{
+							printf("invalid label found, assembly process stopped\n");
+							exit(1);
+						}
+					}
+
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
+		/*-------------------------------------------------------BRn--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "brn")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "0000100\0";
+					//value mode
+					if(lArg1[0]=='x' || lArg1[0]=='#')
+					{
+						int offset9 = toNum(lArg1);
+						for(int i=0; i<9; i++)
+						{
+							int offset9shift = offset9>>(8-i);
+							if(offset9shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					//label mode
+					else
+					{
+						int labelFound = 0;
+						for(int i=0; i<MAX_SYMBOLS; i++)
+						{
+							if(strcmp(symbolTable[i].label, lArg1)==0)
+							{
+								labelFound=1;
+								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+
+								for(int j=0; j<9; j++)
+								{
+									int offset9shift = offset9>>(8-j);
+									if(offset9shift&1==1) {strcat(binInstruction, "1");}
+									else  {strcat(binInstruction, "0");}
+
+								}
+							}
+						}
+						//if it breaks out of the loop, then the label does not exist in the symbol table
+						if(labelFound==0)
+						{
+							printf("invalid label found, assembly process stopped\n");
+							exit(1);
+						}
+					}
+
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
+		/*-------------------------------------------------------BRnz--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "brnz")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "0000110\0";
+					//value mode
+					if(lArg1[0]=='x' || lArg1[0]=='#')
+					{
+						int offset9 = toNum(lArg1);
+						for(int i=0; i<9; i++)
+						{
+							int offset9shift = offset9>>(8-i);
+							if(offset9shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					//label mode
+					else
+					{
+						int labelFound = 0;
+						for(int i=0; i<MAX_SYMBOLS; i++)
+						{
+							if(strcmp(symbolTable[i].label, lArg1)==0)
+							{
+								labelFound=1;
+								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+
+								for(int j=0; j<9; j++)
+								{
+									int offset9shift = offset9>>(8-j);
+									if(offset9shift&1==1) {strcat(binInstruction, "1");}
+									else  {strcat(binInstruction, "0");}
+
+								}
+							}
+						}
+						//if it breaks out of the loop, then the label does not exist in the symbol table
+						if(labelFound==0)
+						{
+							printf("invalid label found, assembly process stopped\n");
+							exit(1);
+						}
+					}
+
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
+		/*-------------------------------------------------------BRnzp--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "brnzp")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "0000111\0";
+					//value mode
+					if(lArg1[0]=='x' || lArg1[0]=='#')
+					{
+						int offset9 = toNum(lArg1);
+						for(int i=0; i<9; i++)
+						{
+							int offset9shift = offset9>>(8-i);
+							if(offset9shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					//label mode
+					else
+					{
+						int labelFound = 0;
+						for(int i=0; i<MAX_SYMBOLS; i++)
+						{
+							if(strcmp(symbolTable[i].label, lArg1)==0)
+							{
+								labelFound=1;
+								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+
+								for(int j=0; j<9; j++)
+								{
+									int offset9shift = offset9>>(8-j);
+									if(offset9shift&1==1) {strcat(binInstruction, "1");}
+									else  {strcat(binInstruction, "0");}
+
+								}
+							}
+						}
+						//if it breaks out of the loop, then the label does not exist in the symbol table
+						if(labelFound==0)
+						{
+							printf("invalid label found, assembly process stopped\n");
+							exit(1);
+						}
+					}
+
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
+		/*-------------------------------------------------------BRz--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "brz")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "0000010\0";
+					//value mode
+					if(lArg1[0]=='x' || lArg1[0]=='#')
+					{
+						int offset9 = toNum(lArg1);
+						for(int i=0; i<9; i++)
+						{
+							int offset9shift = offset9>>(8-i);
+							if(offset9shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					//label mode
+					else
+					{
+						int labelFound = 0;
+						for(int i=0; i<MAX_SYMBOLS; i++)
+						{
+							if(strcmp(symbolTable[i].label, lArg1)==0)
+							{
+								labelFound=1;
+								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+
+								for(int j=0; j<9; j++)
+								{
+									int offset9shift = offset9>>(8-j);
+									if(offset9shift&1==1) {strcat(binInstruction, "1");}
+									else  {strcat(binInstruction, "0");}
+
+								}
+							}
+						}
+						//if it breaks out of the loop, then the label does not exist in the symbol table
+						if(labelFound==0)
+						{
+							printf("invalid label found, assembly process stopped\n");
+							exit(1);
+						}
+					}
+
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
+		/*-------------------------------------------------------BRzp--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "brzp")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "0000011\0";
+					//value mode
+					if(lArg1[0]=='x' || lArg1[0]=='#')
+					{
+						int offset9 = toNum(lArg1);
+						for(int i=0; i<9; i++)
+						{
+							int offset9shift = offset9>>(8-i);
+							if(offset9shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					//label mode
+					else
+					{
+						int labelFound = 0;
+						for(int i=0; i<MAX_SYMBOLS; i++)
+						{
+							if(strcmp(symbolTable[i].label, lArg1)==0)
+							{
+								labelFound=1;
+								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+
+								for(int j=0; j<9; j++)
+								{
+									int offset9shift = offset9>>(8-j);
+									if(offset9shift&1==1) {strcat(binInstruction, "1");}
+									else  {strcat(binInstruction, "0");}
+
+								}
+							}
+						}
+						//if it breaks out of the loop, then the label does not exist in the symbol table
+						if(labelFound==0)
+						{
+							printf("invalid label found, assembly process stopped\n");
+							exit(1);
+						}
+					}
+
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
+		/*-------------------------------------------------------BRp--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "brp")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "0000001\0";
+					//value mode
+					if(lArg1[0]=='x' || lArg1[0]=='#')
+					{
+						int offset9 = toNum(lArg1);
+						for(int i=0; i<9; i++)
+						{
+							int offset9shift = offset9>>(8-i);
+							if(offset9shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					//label mode
+					else
+					{
+						int labelFound = 0;
+						for(int i=0; i<MAX_SYMBOLS; i++)
+						{
+							if(strcmp(symbolTable[i].label, lArg1)==0)
+							{
+								labelFound=1;
+								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+
+								for(int j=0; j<9; j++)
+								{
+									int offset9shift = offset9>>(8-j);
+									if(offset9shift&1==1) {strcat(binInstruction, "1");}
+									else  {strcat(binInstruction, "0");}
+
+								}
+							}
+						}
+						//if it breaks out of the loop, then the label does not exist in the symbol table
+						if(labelFound==0)
+						{
+							printf("invalid label found, assembly process stopped\n");
+							exit(1);
+						}
+					}
+
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
+		/*-------------------------------------------------------BRnp--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "brnp")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "0000101\0";
+					//value mode
+					if(lArg1[0]=='x' || lArg1[0]=='#')
+					{
+						int offset9 = toNum(lArg1);
+						for(int i=0; i<9; i++)
+						{
+							int offset9shift = offset9>>(8-i);
+							if(offset9shift&1==1) {strcat(binInstruction, "1");}
+							else  {strcat(binInstruction, "0");}
+						}
+					}
+					//label mode
+					else
+					{
+						int labelFound = 0;
+						for(int i=0; i<MAX_SYMBOLS; i++)
+						{
+							if(strcmp(symbolTable[i].label, lArg1)==0)
+							{
+								labelFound=1;
+								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+
+								for(int j=0; j<9; j++)
+								{
+									int offset9shift = offset9>>(8-j);
+									if(offset9shift&1==1) {strcat(binInstruction, "1");}
+									else  {strcat(binInstruction, "0");}
+
+								}
+							}
+						}
+						//if it breaks out of the loop, then the label does not exist in the symbol table
+						if(labelFound==0)
+						{
+							printf("invalid label found, assembly process stopped\n");
+							exit(1);
+						}
+					}
+
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
 	/*------------------------------------------------HALT----------------------------------------------------*/
 				else if(strcmp(lOpcode, "halt")==0)
 				{
-					fprintf(outFile, "xF025\n");
+					fprintf(outFile, "0xF025\n");
 				}
 	/*------------------------------------------------JMP----------------------------------------------------*/
 				else if(strcmp(lOpcode, "jmp")==0)
@@ -433,7 +769,7 @@ int main(int argc, char* argv[])
 	/*------------------------------------------------NOP----------------------------------------------------*/
 				else if(strcmp(lOpcode, "nop")==0)
 				{
-					fprintf(outFile, "x0000\n");
+					fprintf(outFile, "0x0000\n");
 				}
 	/*------------------------------------------------NOT----------------------------------------------------*/
 				else if(strcmp(lOpcode, "not")==0)
@@ -469,7 +805,7 @@ int main(int argc, char* argv[])
 	/*------------------------------------------------RET----------------------------------------------------*/
 				else if(strcmp(lOpcode, "ret")==0)
 				{
-					fprintf(outFile, "xC1C0\n");
+					fprintf(outFile, "0xC1C0\n");
 				}
 	/*------------------------------------------------LSHF----------------------------------------------------*/
 				else if(strcmp(lOpcode, "lshf")==0)
@@ -597,7 +933,7 @@ int main(int argc, char* argv[])
 	/*------------------------------------------------RTI----------------------------------------------------*/
 				else if(strcmp(lOpcode, "rti")==0)
 				{
-					fprintf(outFile, "x8000\n");
+					fprintf(outFile, "0x8000\n");
 				}
 	/*------------------------------------------------STB----------------------------------------------------*/
 
@@ -774,7 +1110,7 @@ int main(int argc, char* argv[])
 				}
 				else if(strcmp(lOpcode, ".fill")==0)
 				{
-					fprintf(outFile, "%s\n", lArg1);
+					fprintf(outFile, "0%s\n", lArg1);
 				}
 				else if(strcmp(lOpcode, ".end")==0)
 				{
@@ -945,7 +1281,7 @@ int toNum(char* pStr)
 
 char* binaryStringToHexString(char* bStr)
 {
-	char hexString[5] = "x\0";
+	char hexString[6] = "0x\0";
 	int pt = 0;
 	int hpt = 1;
 	for(int i=0; i<4; i++)
