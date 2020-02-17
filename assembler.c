@@ -191,6 +191,11 @@ int main(int argc, char* argv[])
 						}
 
 					}
+					if(strcmp(lArg4, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
@@ -254,6 +259,11 @@ int main(int argc, char* argv[])
 						}
 
 					}
+					if(strcmp(lArg4, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
@@ -277,6 +287,11 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+								if(offset9>255 || offset9<-256)
+								{
+									printf("offset out of range\n");
+									exit(4);
+								}
 
 								for(int j=0; j<9; j++)
 								{
@@ -293,6 +308,11 @@ int main(int argc, char* argv[])
 							printf("invalid label found, assembly process stopped\n");
 							exit(1);
 						}
+					}
+					if(strcmp(lArg2, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
 					}
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
@@ -318,6 +338,11 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+								if(offset9>255 || offset9<-256)
+								{
+									printf("offset out of range\n");
+									exit(4);
+								}
 
 								for(int j=0; j<9; j++)
 								{
@@ -334,6 +359,11 @@ int main(int argc, char* argv[])
 							printf("invalid label found, assembly process stopped\n");
 							exit(1);
 						}
+					}
+					if(strcmp(lArg2, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
 					}
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
@@ -359,6 +389,11 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+								if(offset9>255 || offset9<-256)
+								{
+									printf("offset out of range\n");
+									exit(4);
+								}
 
 								for(int j=0; j<9; j++)
 								{
@@ -375,6 +410,11 @@ int main(int argc, char* argv[])
 							printf("invalid label found, assembly process stopped\n");
 							exit(1);
 						}
+					}
+					if(strcmp(lArg2, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
 					}
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
@@ -400,6 +440,11 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+								if(offset9>255 || offset9<-256)
+								{
+									printf("offset out of range\n");
+									exit(4);
+								}
 
 								for(int j=0; j<9; j++)
 								{
@@ -416,6 +461,11 @@ int main(int argc, char* argv[])
 							printf("invalid label found, assembly process stopped\n");
 							exit(1);
 						}
+					}
+					if(strcmp(lArg2, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
 					}
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
@@ -441,6 +491,11 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+								if(offset9>255 || offset9<-256)
+								{
+									printf("offset out of range\n");
+									exit(4);
+								}
 
 								for(int j=0; j<9; j++)
 								{
@@ -457,6 +512,11 @@ int main(int argc, char* argv[])
 							printf("invalid label found, assembly process stopped\n");
 							exit(1);
 						}
+					}
+					if(strcmp(lArg2, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
 					}
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
@@ -482,6 +542,11 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+								if(offset9>255 || offset9<-256)
+								{
+									printf("offset out of range\n");
+									exit(4);
+								}
 
 								for(int j=0; j<9; j++)
 								{
@@ -498,6 +563,11 @@ int main(int argc, char* argv[])
 							printf("invalid label found, assembly process stopped\n");
 							exit(1);
 						}
+					}
+					if(strcmp(lArg2, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
 					}
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
@@ -523,6 +593,11 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+								if(offset9>255 || offset9<-256)
+								{
+									printf("offset out of range\n");
+									exit(4);
+								}
 
 								for(int j=0; j<9; j++)
 								{
@@ -539,6 +614,11 @@ int main(int argc, char* argv[])
 							printf("invalid label found, assembly process stopped\n");
 							exit(1);
 						}
+					}
+					if(strcmp(lArg2, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
 					}
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
@@ -564,6 +644,11 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+								if(offset9>255 || offset9<-256)
+								{
+									printf("offset out of range\n");
+									exit(4);
+								}
 
 								for(int j=0; j<9; j++)
 								{
@@ -581,6 +666,11 @@ int main(int argc, char* argv[])
 							exit(1);
 						}
 					}
+					if(strcmp(lArg2, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
@@ -588,6 +678,11 @@ int main(int argc, char* argv[])
 	/*------------------------------------------------HALT----------------------------------------------------*/
 				else if(strcmp(lOpcode, "halt")==0)
 				{
+					if(strcmp(lArg1, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
 					fprintf(outFile, "0xF025\n");
 				}
 	/*------------------------------------------------JMP----------------------------------------------------*/
@@ -607,6 +702,11 @@ int main(int argc, char* argv[])
 						case(-1): printf("invalid register operand detected; assembly process halted\n"); exit(4);
 					}
 					strcat(binInstruction, "000000");
+					if(strcmp(lArg2, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
@@ -625,6 +725,11 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset11 = ((symbolTable[i].address-start)-(y*2+2));
+								if(offset11>1023 || offset11<-1024)
+								{
+									printf("offset out of range\n");
+									exit(4);
+								}
 
 								for(int j=0; j<11; j++)
 								{
@@ -641,6 +746,11 @@ int main(int argc, char* argv[])
 							printf("invalid label found, assembly process stopped\n");
 							exit(1);
 						}
+					}
+					if(strcmp(lArg2, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
 					}
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
@@ -663,6 +773,11 @@ int main(int argc, char* argv[])
 						case(-1): printf("invalid register operand detected; assembly process halted\n"); exit(4);
 					}
 					strcat(binInstruction, "000000");
+					if(strcmp(lArg2, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
@@ -707,6 +822,11 @@ int main(int argc, char* argv[])
 							if(shift&1 == 1) strcat(binInstruction, "1");
 							else strcat(binInstruction, "0");
 						}
+					}
+					if(strcmp(lArg4, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
 					}
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
@@ -753,6 +873,11 @@ int main(int argc, char* argv[])
 							else strcat(binInstruction, "0");
 						}
 					}
+					if(strcmp(lArg4, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
@@ -788,6 +913,11 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+								if(offset9>255 || offset9<-256)
+								{
+									printf("offset out of range\n");
+									exit(4);
+								}
 
 								for(int j=0; j<9; j++)
 								{
@@ -804,6 +934,11 @@ int main(int argc, char* argv[])
 							exit(1);
 						}
 					}
+					if(strcmp(lArg3, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
@@ -811,6 +946,11 @@ int main(int argc, char* argv[])
 	/*------------------------------------------------NOP----------------------------------------------------*/
 				else if(strcmp(lOpcode, "nop")==0)
 				{
+					if(strcmp(lLabel, "")!=0 || strcmp(lArg1, "")!=0)
+					{
+						printf("extra operands OR you have a label on a NOP\n");
+						exit(4);
+					}
 					fprintf(outFile, "0x0000\n");
 				}
 	/*------------------------------------------------NOT----------------------------------------------------*/
@@ -841,12 +981,22 @@ int main(int argc, char* argv[])
 						case(-1): printf("invalid register operand detected\n"); exit(4);
 					}
 					strcat(binInstruction, "111111");
+					if(strcmp(lArg3, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
 	/*------------------------------------------------RET----------------------------------------------------*/
 				else if(strcmp(lOpcode, "ret")==0)
 				{
+					if(strcmp(lArg1, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
 					fprintf(outFile, "0xC1C0\n");
 				}
 	/*------------------------------------------------LSHF----------------------------------------------------*/
@@ -887,6 +1037,12 @@ int main(int argc, char* argv[])
 							else  {strcat(binInstruction, "0");}
 						}
 					}
+					if(strcmp(lArg4, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
+
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
@@ -928,6 +1084,12 @@ int main(int argc, char* argv[])
 							else  {strcat(binInstruction, "0");}
 						}
 					}
+					if(strcmp(lArg4, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
+
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
@@ -969,12 +1131,23 @@ int main(int argc, char* argv[])
 							else  {strcat(binInstruction, "0");}
 						}
 					}
+					if(strcmp(lArg4, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
+
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 					}
 	/*------------------------------------------------RTI----------------------------------------------------*/
 				else if(strcmp(lOpcode, "rti")==0)
 				{
+					if(strcmp(lArg1, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
 					fprintf(outFile, "0x8000\n");
 				}
 	/*------------------------------------------------STB----------------------------------------------------*/
@@ -1018,6 +1191,12 @@ int main(int argc, char* argv[])
 							else strcat(binInstruction, "0");
 						}
 					}
+					if(strcmp(lArg4, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
+
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
@@ -1061,6 +1240,12 @@ int main(int argc, char* argv[])
 							else strcat(binInstruction, "0");
 						}
 					}
+					if(strcmp(lArg4, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
+
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
@@ -1082,6 +1267,12 @@ int main(int argc, char* argv[])
 					{
 						printf("Invalid constant; needs to be hex");
 						exit(3);
+					}
+
+					if(strcmp(lArg2, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
 					}
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
@@ -1147,15 +1338,34 @@ int main(int argc, char* argv[])
 						}
 
 					}
+					if(strcmp(lArg4, "")!=0)
+					{
+						printf("extra operands\n");
+						exit(4);
+					}
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
 				else if(strcmp(lOpcode, ".fill")==0)
 				{
-					fprintf(outFile, "0%s\n", lArg1);
+					char binInstruction[16] = "\0";
+					int val = toNum(lArg1);
+					for(int i=0; i<16; i++)
+					{
+						int valshift = val>>(15-i);
+						if(valshift&1==1) {strcat(binInstruction, "1");}
+						else  {strcat(binInstruction, "0");}
+					}
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
 				else if(strcmp(lOpcode, ".end")==0)
 				{
+					if(strcmp(lLabel, "")!=0)
+					{
+						printf("exit cannot have a label\n");
+						exit(4);
+					}
 					break;
 				}
 				//invalid opcode
@@ -1459,6 +1669,7 @@ int regToInt(char* arg)
 	/*------------------------------------------------isValidLabel----------------------------------------------------*/
 int isValidLabel(char* arg)
 {
+	if(strlen(arg)>20) return -1;
 	if(strcmp(arg, "r0")==0) return -1;
 	if(strcmp(arg, "r1")==0) return -1;
 	if(strcmp(arg, "r2")==0) return -1;
@@ -1480,6 +1691,10 @@ int isValidLabel(char* arg)
 	{
 		if(strcmp(arg, validOpcode[i])==0) return -1;
 	}
-	if(arg[0]>='0' && arg[0]<='9') return -1;
-	else return 0;
+	if(!((arg[0]>='a' && arg[0]<='z')||(arg[0]>='A' && arg[0]<='Z'))) return -1;
+	if(arg[0]=='x') return -1;
+	for(int i=0; i<strlen(arg); i++)
+	{
+		if(!((arg[i]>='a' && arg[i]<='z')||(arg[i]>='A' && arg[i]<='Z')||(arg[i]>='0' && arg[i]<='9' && i!=0))) return -1;
+	}
 }
