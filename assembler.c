@@ -108,7 +108,6 @@ int main(int argc, char* argv[])
     if(lRet != DONE && lRet != EMPTY_LINE)
     {
 				//we don't need to worry about this one! we already did what we need to do in the first pass
-				if(strcmp(lOpcode, ".orig")==0){/**/}
 				// OPCODES THAT STILL NEED TO BE WRITTEN
 				// "br", "brn", "brnz", "brnzp", "brz", "brzp", "brp", "brnp",
 				// "jsr", "lea"
