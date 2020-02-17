@@ -94,13 +94,13 @@ int main(int argc, char* argv[])
 					{
 						if(strcmp(lLabel, symbolTable[i].label)==0)
 						{
-							printf("duplicate label encountered, get it together");
+							printf("duplicate label encountered, get it together\n");
 							exit(4);
 						}
 					}
 					if(isValidLabel(lLabel)==-1)
 					{
-						printf("invalid label encountered, get it together");
+						printf("invalid label encountered, get it together\n");
 						exit(4);
 					}
 					symbolTable[tablePointer].address = start+(x*2);
@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
 
 				if(start+(x*2)>65535)
 				{
-					printf("program overflow");
+					printf("program overflow\n");
 					exit(4);
 				}
 				//increment loop pointer
@@ -127,12 +127,10 @@ int main(int argc, char* argv[])
     if(lRet != DONE && lRet != EMPTY_LINE)
     {
 				//we don't need to worry about this one! we already did what we need to do in the first pass
-				if(strcmp(lOpcode, ".orig")==0){/**/
-					char* hexInstruction = binaryStringToHexString(lLine);
-					fprintf(outFile, "%s\n", hexInstruction);
-    			}
-				// OPCODES THAT STILL NEED TO BE WRITTEN
-				// "jsr", "lea"
+				if(strcmp(lOpcode, ".orig")==0)
+				{
+					fprintf(outFile, "0%s\n", lArg1);
+				}
   /*-------------------------------------------------------ADD--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "add")==0)
 				{
