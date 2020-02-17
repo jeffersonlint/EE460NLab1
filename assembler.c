@@ -625,8 +625,6 @@ int main(int argc, char* argv[])
 
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
-					char* hexInstruction = binaryStringToHexString(binInstruction);
-					fprintf(outFile, "%s\n", hexInstruction);
 				}
 	/*------------------------------------------------JSRR----------------------------------------------------*/
 				else if(strcmp(lOpcode, "jsrr")==0)
