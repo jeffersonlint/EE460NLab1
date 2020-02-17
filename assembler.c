@@ -110,7 +110,6 @@ int main(int argc, char* argv[])
 				//we don't need to worry about this one! we already did what we need to do in the first pass
 				if(strcmp(lOpcode, ".orig")==0){/**/}
 				// OPCODES THAT STILL NEED TO BE WRITTEN
-				// "br", "brn", "brnz", "brnzp", "brz", "brzp", "brp", "brnp",
 				// "jsr", "lea"
   /*-------------------------------------------------------ADD--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "add")==0)
@@ -245,13 +244,8 @@ int main(int argc, char* argv[])
 					//value mode
 					if(lArg1[0]=='x' || lArg1[0]=='#')
 					{
-						int offset9 = toNum(lArg1);
-						for(int i=0; i<9; i++)
-						{
-							int offset9shift = offset9>>(8-i);
-							if(offset9shift&1==1) {strcat(binInstruction, "1");}
-							else  {strcat(binInstruction, "0");}
-						}
+						printf("invalid operand, assembly process halted\n");
+						exit(4);
 					}
 					//label mode
 					else
@@ -291,13 +285,8 @@ int main(int argc, char* argv[])
 					//value mode
 					if(lArg1[0]=='x' || lArg1[0]=='#')
 					{
-						int offset9 = toNum(lArg1);
-						for(int i=0; i<9; i++)
-						{
-							int offset9shift = offset9>>(8-i);
-							if(offset9shift&1==1) {strcat(binInstruction, "1");}
-							else  {strcat(binInstruction, "0");}
-						}
+						printf("invalid operand, assembly process halted\n");
+						exit(4);
 					}
 					//label mode
 					else
@@ -337,13 +326,8 @@ int main(int argc, char* argv[])
 					//value mode
 					if(lArg1[0]=='x' || lArg1[0]=='#')
 					{
-						int offset9 = toNum(lArg1);
-						for(int i=0; i<9; i++)
-						{
-							int offset9shift = offset9>>(8-i);
-							if(offset9shift&1==1) {strcat(binInstruction, "1");}
-							else  {strcat(binInstruction, "0");}
-						}
+						printf("invalid operand, assembly process halted\n");
+						exit(4);
 					}
 					//label mode
 					else
@@ -383,13 +367,8 @@ int main(int argc, char* argv[])
 					//value mode
 					if(lArg1[0]=='x' || lArg1[0]=='#')
 					{
-						int offset9 = toNum(lArg1);
-						for(int i=0; i<9; i++)
-						{
-							int offset9shift = offset9>>(8-i);
-							if(offset9shift&1==1) {strcat(binInstruction, "1");}
-							else  {strcat(binInstruction, "0");}
-						}
+						printf("invalid operand, assembly process halted\n");
+						exit(4);
 					}
 					//label mode
 					else
@@ -429,13 +408,8 @@ int main(int argc, char* argv[])
 					//value mode
 					if(lArg1[0]=='x' || lArg1[0]=='#')
 					{
-						int offset9 = toNum(lArg1);
-						for(int i=0; i<9; i++)
-						{
-							int offset9shift = offset9>>(8-i);
-							if(offset9shift&1==1) {strcat(binInstruction, "1");}
-							else  {strcat(binInstruction, "0");}
-						}
+						printf("invalid operand, assembly process halted\n");
+						exit(4);
 					}
 					//label mode
 					else
@@ -475,13 +449,8 @@ int main(int argc, char* argv[])
 					//value mode
 					if(lArg1[0]=='x' || lArg1[0]=='#')
 					{
-						int offset9 = toNum(lArg1);
-						for(int i=0; i<9; i++)
-						{
-							int offset9shift = offset9>>(8-i);
-							if(offset9shift&1==1) {strcat(binInstruction, "1");}
-							else  {strcat(binInstruction, "0");}
-						}
+						printf("invalid operand, assembly process halted\n");
+						exit(4);
 					}
 					//label mode
 					else
@@ -521,13 +490,8 @@ int main(int argc, char* argv[])
 					//value mode
 					if(lArg1[0]=='x' || lArg1[0]=='#')
 					{
-						int offset9 = toNum(lArg1);
-						for(int i=0; i<9; i++)
-						{
-							int offset9shift = offset9>>(8-i);
-							if(offset9shift&1==1) {strcat(binInstruction, "1");}
-							else  {strcat(binInstruction, "0");}
-						}
+						printf("invalid operand, assembly process halted\n");
+						exit(4);
 					}
 					//label mode
 					else
@@ -567,13 +531,8 @@ int main(int argc, char* argv[])
 					//value mode
 					if(lArg1[0]=='x' || lArg1[0]=='#')
 					{
-						int offset9 = toNum(lArg1);
-						for(int i=0; i<9; i++)
-						{
-							int offset9shift = offset9>>(8-i);
-							if(offset9shift&1==1) {strcat(binInstruction, "1");}
-							else  {strcat(binInstruction, "0");}
-						}
+						printf("invalid operand, assembly process halted\n");
+						exit(4);
 					}
 					//label mode
 					else
@@ -746,9 +705,56 @@ int main(int argc, char* argv[])
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
+	/*------------------------------------------------LEA----------------------------------------------------*/
 				else if(strcmp(lOpcode, "lea")==0)
 				{
-					fprintf(outFile, "need to do this opcode!\n");
+					char binInstruction[16] = "1110";
+					switch(regToInt(lArg1)){
+						case(0): strncat(binInstruction, "000\0", 4); break;
+						case(1): strncat(binInstruction, "001\0", 4); break;
+						case(2): strncat(binInstruction, "010\0", 4); break;
+						case(3): strncat(binInstruction, "011\0", 4); break;
+						case(4): strncat(binInstruction, "100\0", 4); break;
+						case(5): strncat(binInstruction, "101\0", 4); break;
+						case(6): strncat(binInstruction, "110\0", 4); break;
+						case(7): strncat(binInstruction, "111\0", 4); break;
+						case(-1): printf("invalid register operand detected\n"); exit(4);
+					}
+
+					if(lArg2[0]=='x' || lArg2[0]=='#')
+					{
+							printf("invalid operand, assembly process halted\n");
+							exit(4);
+					}
+					//label mode
+					else
+					{
+						int labelFound = 0;
+						for(int i=0; i<MAX_SYMBOLS; i++)
+						{
+							if(strcmp(symbolTable[i].label, lArg2)==0)
+							{
+								labelFound=1;
+								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
+
+								for(int j=0; j<9; j++)
+								{
+									int offset9shift = offset9>>(8-j);
+									if(offset9shift&1==1) {strcat(binInstruction, "1");}
+									else  {strcat(binInstruction, "0");}
+								}
+							}
+						}
+						//if it breaks out of the loop, then the label does not exist in the symbol table
+						if(labelFound==0)
+						{
+							printf("invalid label found, assembly process stopped\n");
+							exit(1);
+						}
+					}
+
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
 	/*------------------------------------------------NOP----------------------------------------------------*/
 				else if(strcmp(lOpcode, "nop")==0)
