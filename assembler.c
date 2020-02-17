@@ -129,7 +129,21 @@ int main(int argc, char* argv[])
 				//we don't need to worry about this one! we already did what we need to do in the first pass
 				if(strcmp(lOpcode, ".orig")==0)
 				{
-					fprintf(outFile, "0%s\n", lArg1);
+					char binInstruction[16] = "\0";
+					int val = toNum(lArg1);
+					if(val>65535 || val<-32678)
+					{
+						printf("value not representable in 16 bits\n");
+						exit(3);
+					}
+					for(int i=0; i<16; i++)
+					{
+						int valshift = val>>(15-i);
+						if(valshift&1==1) {strcat(binInstruction, "1");}
+						else  {strcat(binInstruction, "0");}
+					}
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 				}
   /*-------------------------------------------------------ADD--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "add")==0)
@@ -270,7 +284,7 @@ int main(int argc, char* argv[])
 	/*-------------------------------------------------------BR--------------------------------------------------------------*/
 				else if(strcmp(lOpcode, "br")==0)
 				{
-					char binInstruction[16] = "0000000\0";
+					char binInstruction[16] = "0000111\0";
 					//value mode
 					if(lArg1[0]=='x' || lArg1[0]=='#')
 					{
@@ -287,11 +301,12 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
-								if(offset9>255 || offset9<-256)
+								if(offset9>511 || offset9<-512)
 								{
 									printf("offset out of range\n");
 									exit(4);
 								}
+								offset9=offset9>>1;
 
 								for(int j=0; j<9; j++)
 								{
@@ -338,11 +353,12 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
-								if(offset9>255 || offset9<-256)
+								if(offset9>511 || offset9<-512)
 								{
 									printf("offset out of range\n");
 									exit(4);
 								}
+								offset9=offset9>>1;
 
 								for(int j=0; j<9; j++)
 								{
@@ -389,11 +405,12 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
-								if(offset9>255 || offset9<-256)
+								if(offset9>511 || offset9<-512)
 								{
 									printf("offset out of range\n");
 									exit(4);
 								}
+								offset9=offset9>>1;
 
 								for(int j=0; j<9; j++)
 								{
@@ -440,11 +457,12 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
-								if(offset9>255 || offset9<-256)
+								if(offset9>511 || offset9<-512)
 								{
 									printf("offset out of range\n");
 									exit(4);
 								}
+								offset9=offset9>>1;
 
 								for(int j=0; j<9; j++)
 								{
@@ -491,11 +509,12 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
-								if(offset9>255 || offset9<-256)
+								if(offset9>511 || offset9<-512)
 								{
 									printf("offset out of range\n");
 									exit(4);
 								}
+								offset9=offset9>>1;
 
 								for(int j=0; j<9; j++)
 								{
@@ -542,11 +561,12 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
-								if(offset9>255 || offset9<-256)
+								if(offset9>511 || offset9<-512)
 								{
 									printf("offset out of range\n");
 									exit(4);
 								}
+								offset9=offset9>>1;
 
 								for(int j=0; j<9; j++)
 								{
@@ -593,11 +613,12 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
-								if(offset9>255 || offset9<-256)
+								if(offset9>511 || offset9<-512)
 								{
 									printf("offset out of range\n");
 									exit(4);
 								}
+								offset9=offset9>>1;
 
 								for(int j=0; j<9; j++)
 								{
@@ -644,11 +665,12 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
-								if(offset9>255 || offset9<-256)
+								if(offset9>511 || offset9<-512)
 								{
 									printf("offset out of range\n");
 									exit(4);
 								}
+								offset9=offset9>>1;
 
 								for(int j=0; j<9; j++)
 								{
@@ -725,11 +747,12 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset11 = ((symbolTable[i].address-start)-(y*2+2));
-								if(offset11>1023 || offset11<-1024)
+								if(offset11>2047 || offset11<-2048)
 								{
 									printf("offset out of range\n");
 									exit(4);
 								}
+								offset11=offset11>>1;
 
 								for(int j=0; j<11; j++)
 								{
@@ -863,10 +886,11 @@ int main(int argc, char* argv[])
 					//Immediate
 					if(lArg3[0] == 'x' || lArg3[0] == '#'){
 						int offset6 = toNum(lArg3);
-						if(offset6 > 31 || offset6 < -32){
+						if(offset6 > 63 || offset6 < -64){
 							printf("Invalid constant detected\n");
 							exit(3);
 						}
+						offset6=offset6>>1;
 						for(int i = 0; i < 6; i++){				//Copy offset
 							int shift = offset6>>(5-i);
 							if(shift&1 == 1) strcat(binInstruction, "1");
@@ -913,11 +937,12 @@ int main(int argc, char* argv[])
 							{
 								labelFound=1;
 								int offset9 = ((symbolTable[i].address-start)-(y*2+2));
-								if(offset9>255 || offset9<-256)
+								if(offset9>511 || offset9<-512)
 								{
 									printf("offset out of range\n");
 									exit(4);
 								}
+								offset9=offset9>>1;
 
 								for(int j=0; j<9; j++)
 								{
@@ -1230,10 +1255,11 @@ int main(int argc, char* argv[])
 					//Immediate
 					if(lArg3[0] == 'x' || lArg3[0] == '#'){
 						int offset6 = toNum(lArg3);
-						if(offset6 > 31 || offset6 < -32){
+						if(offset6 > 63 || offset6 < -64){
 							printf("Invalid constant detected\n");
 							exit(3);
 						}
+						offset6=offset6>>1;
 						for(int i = 0; i < 6; i++){				//Copy offset
 							int shift = offset6>>(5-i);
 							if(shift&1 == 1) strcat(binInstruction, "1");
@@ -1266,7 +1292,7 @@ int main(int argc, char* argv[])
 					else
 					{
 						printf("Invalid constant; needs to be hex");
-						exit(3);
+						exit(4);
 					}
 
 					if(strcmp(lArg2, "")!=0)
@@ -1350,6 +1376,11 @@ int main(int argc, char* argv[])
 				{
 					char binInstruction[16] = "\0";
 					int val = toNum(lArg1);
+					if(val>65535 || val<-32678)
+					{
+						printf("value not representable in 16 bits\n");
+						exit(3);
+					}
 					for(int i=0; i<16; i++)
 					{
 						int valshift = val>>(15-i);
