@@ -637,17 +637,35 @@ int main(int argc, char* argv[])
 					char binInstruction[16] = "01001\0";
 					if (lArg1[0] == 'x' || lArg1[0] == '#'){	//If it is a numeric offset
 						printf("Invalid Constant detected\n");
-						exit(3);
-					}else{	//If it is a label offset
-						//Get label name
-							//Check if valid label
-							//If valid continue, otherwise exit code 0
-						//Get current address
-						//See if address of label falls into range of acceptable values
-							//Range of acceptable values is (-1024 to 1023)
-						//If valid compute 
+						exit(4);
+					}else{
+						int labelFound = 0;
+						for(int i=0; i<MAX_SYMBOLS; i++)
+						{
+							if(strcmp(symbolTable[i].label, lArg1)==0)
+							{
+								labelFound=1;
+								int offset11 = ((symbolTable[i].address-start)-(y*2+2));
 
+								for(int j=0; j<11; j++)
+								{
+									int offset11shift = offset11>>(10-j);
+									if(offset11shift&1==1) {strcat(binInstruction, "1");}
+									else  {strcat(binInstruction, "0");}
+
+								}
+							}
+						}
+						//if it breaks out of the loop, then the label does not exist in the symbol table
+						if(labelFound==0)
+						{
+							printf("invalid label found, assembly process stopped\n");
+							exit(1);
+						}
 					}
+
+					char* hexInstruction = binaryStringToHexString(binInstruction);
+					fprintf(outFile, "%s\n", hexInstruction);
 					char* hexInstruction = binaryStringToHexString(binInstruction);
 					fprintf(outFile, "%s\n", hexInstruction);
 				}
